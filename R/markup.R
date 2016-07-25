@@ -11,6 +11,11 @@ dataset <- function(word) {
 }
 
 #' @export
+index_entry <- function(index_label, index_contents) {
+  I(paste0("Fix index_entry. Contents: ", index_contents))
+}
+
+#' @export
 verbatim_input <- function(file_name) {
   text <- paste(readLines(file_name), collapse = "\n")
   # escape quotes
