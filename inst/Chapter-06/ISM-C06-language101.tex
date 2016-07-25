@@ -1,0 +1,21 @@
+%% Author: Daniel Kaplan
+%% Subject: Computation and Graphics
+
+Here is a display constructed using the Current Population Survey wage data:
+
+\centerline{\includegraphics[width=2.5in]{../Figures/box-wages.png}}
+
+Which of the following commands will make this? Each of the
+possibilities is a working command, so try them out and see which one
+makes the matching plot.  Before you start, make sure to read in the
+data with 
+\begin{verbatim}
+> cps = fetchData("cps.csv")
+\end{verbatim}
+
+\begin{MultipleChoice}
+\wrong{\code{bwplot( wage ~ sex, groups= sector, data=cps)}}
+\correct{\code{bwplot( wage ~ sex | sector, data=cps)}}
+\wrong{\code{bwplot( wage ~ cross(sex,sector), data=cps)}}
+\end{MultipleChoice}
+

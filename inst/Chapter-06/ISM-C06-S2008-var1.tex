@@ -1,0 +1,64 @@
+%% Author=DTK,
+%% Subject=graphics technique, adding onto a plot
+%% Title: Drawing Graphics Incrementally
+
+Sometimes when making a graphic, you want to change some aspect of it
+or add new elements to it.  The lattice graphics system provides ways
+to do this.  To illustrate, make a simple density plot in the ordinary
+way.  
+\begin{verbatim}
+galton = fetchData("galton.csv")
+densityplot( galton$height )
+\end{verbatim}
+
+In looking at the plot, you realize that you want a better label for
+the horizontal axis.  One option is to redo the plot from scratch:
+\begin{verbatim}
+densityplot( galton$height, xlab="Children")
+\end{verbatim}
+Another option is to instruct the graphics system just to change the
+specific parameters you want, for example, to change the x-label and
+to delete the points plotted at the bottom:
+\begin{verbatim}
+trellis.last.object( xlab="Height (inches)", 
+  plot.points=FALSE)
+\end{verbatim}
+
+Now suppose you decide to superimpose density plots of the mothers' and
+fathers' heights.  To do this, you need to tell the lattice system
+that you want to {\em add on} to the plot.  This is done with the
+\code{trellis.focus} command:
+\begin{verbatim}
+trellis.focus()
+\end{verbatim}
+You'll notice that the original graphic is surrounded by a red line.
+Once this is done, you can add on to the plot.  
+
+To start, use \code{density} to compute the density curve for the
+mothers and the fathers.  This will not plot out those curves, yet.
+\begin{verbatim}
+mother = density(galton$mother)
+father = density(galton$father)
+\end{verbatim}
+
+Now you can add those curves to the plot, using the \code{llines}
+command.  This takes a series of x- and y- points, but those are
+already contained in the output of the \code{density} program:
+\begin{verbatim}
+llines(mother, col='red', lwd=2)
+llines(father, col='black', lwd=2)
+\end{verbatim}
+
+Finally, tell the lattice system that you are done adding to the
+original plot:
+\begin{verbatim}
+trellis.unfocus()
+\end{verbatim}
+
+Use these commands to construct the graph comparing the distribution
+of the mothers' and
+fathers' heights to the children's heights.  Describe how they are
+different and explain why this is. \TextEntry
+
+Other useful commands for adding elements to lattice plots are
+\code{llines}, \code{lpoints}, and \code{ltext}.

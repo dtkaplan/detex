@@ -1,0 +1,49 @@
+%% Author: Daniel Kaplan
+%% Subject: Correlation
+
+Using your general knowledge about the world, think about the
+relationship between these variables:
+\begin{itemize}
+\item \VN{speed} of a bicyclist.
+\item \VN{steepness} of the road, a quantitative variable 
+measured by the grade (rise over
+run). 0 means flat, + means uphill, $-$ means downhill.
+\item \VN{fitness} of the rider, a categorical variable with three
+levels: unfit, average, athletic.
+\end{itemize}
+
+On a piece of paper, sketch out a graph of speed versus steepness for reasonable models
+of each of these forms:
+\begin{enumerate}
+\item Model 1: \model{\VN{speed}}{1 + \VN{steepness}}
+
+\begin{AnswerText}
+Imagine that positive steepness means uphill, and negative steepness
+is downhill. 
+As the hill gets steeper uphill, bicycle speed gets slower.  So this
+model would be a line that slopes negatively.
+\end{AnswerText}
+
+\item Model 2: \model{\VN{speed}}{1 + \VN{fitness}}
+
+\begin{AnswerText}
+Increased fitness leads to higher speed, so the line of speed against fittness will slope upwards.
+\end{AnswerText}
+
+\item Model 3: \model{\VN{speed}}{1 + \VN{steepness}+\VN{fitness}}
+
+\begin{AnswerText}
+Speed will go down with greater steepness (uphill) and speed will go
+up with greater fitness.
+\end{AnswerText}
+
+\item Model 4: \model{\VN{speed}}{1 + \VN{steepness}+\VN{fitness} +
+    \VN{steepness}:\VN{fitness}}
+
+\begin{AnswerText}
+Compared to Model 3, what's new here is the interaction term between
+steepness and fitness.  Presumably, more fit people don't slow down as
+much when they encounter a hill, so the interaction should reduce the
+effect of steepness.
+\end{AnswerText}
+\end{enumerate}

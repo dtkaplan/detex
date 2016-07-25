@@ -1,0 +1,130 @@
+---
+title: "Testing Multiple Choice"
+author: "Daniel Kaplan"
+date: "July 11, 2016"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Question 1.
+
+```{r}
+MCinput <- 
+  function(id, choice_list) {
+    ns <- NS(id)
+ 
+    tagList(
+      selectInput(ns("choices"), label = NULL, choice_list, selected = NULL), 
+      textOutput(ns("result")),
+      div(style="display:none",
+        numericInput(ns("attempts"), label = NULL, value = 0)
+      )
+    )
+  }
+MC <- function(input, output, session, my_name, hints=TRUE, attempts = 0) {
+  output$result <- renderText({
+    if (input$choices == "Choose one.") return("You haven't answered yet.")
+    else {
+      score <- as.numeric(grepl("\\*\\*RIGHT\\*\\*", input$choices))
+      # grab information from the input value
+      to_show <- value <- input$choices
+      
+      to_show <- gsub(".*\\*\\*EMPTY\\*\\*", "", to_show)
+      to_show <- gsub(".*\\*\\*WRONG[0-9]*\\*\\*", "Sorry.", to_show)
+      to_show <- gsub("^.*:::", "", to_show)
+      
+      answer_choice <- gsub(":::.*$", "", value)
+      
+      updateNumericInput(session, "attempts", value = isolate(input$attempts) + 1)
+      update_scorekeeper(my_name, score, answer_choice, isolate(input$attempts))
+      
+      if (hints) to_show
+    }
+  })
+}
+```
+
+```{r}
+Scorekeeper <- list(problem=NULL, attempts=NULL, score=NULL)
+update_scorekeeper <- function(problem, score, answer, attempts) {
+  ind <- which(problem == Scorekeeper$problem)
+  if (length(ind) == 0) {
+    # add a new one
+    Scorekeeper$score <<- c(Scorekeeper$score, NA)
+    Scorekeeper$problem <<- c(Scorekeeper$problem, problem)
+    Scorekeeper$answer <<- c(Scorekeeper$answer, answer)
+    Scorekeeper$attempts <<- c(Scorekeeper$attempts, attempts)
+  } else {
+    Scorekeeper$attempts[ind] <<- 1 + Scorekeeper$attempts[ind]
+    Scorekeeper$score[ind] <<- score
+    Scorekeeper$answer[ind] <<- answer
+  }
+}
+```
+
+
+
+```{r}
+#' @export
+MC_question <- function(id, ...) {
+    choices <- list(...)
+     
+    
+    choices <- c("Choose one." = "**EMPTY**You haven't answered yet.", 
+                     choices)
+    empty_response <- which(names(choices) == "")
+    names(choices)[empty_response] <- 
+      unlist(choices[empty_response])
+    choices[empty_response] <- 
+      paste0("**WRONG", empty_response, "**")
+    shown_text <- names(choices)
+    choices[] <- as.list(paste0(shown_text, ":::", choices[]))
+    MCinput(id, choices)
+}
+```
+ 
+## Exercise 1
+
+The rain in Spain falls mainly on the 
+```{r}  
+MC_question("spain", 
+        "plane" = "No, that's something that flies.", 
+        "plain" = "**RIGHT**", 
+        "plenum", 
+        "plan" = "Not a bad choice, but no.", 
+        "play", 
+        "playa", 
+        "place", 
+        "palace")
+callModule(MC, "spain", "spain", hints = TRUE)
+```
+  
+## Exercise 2
+
+When in the course of human events, it becomes necessary for one ...
+```{r}
+MC_question("declaration", "people" = "**RIGHT**", "government" = "**WRONG**")
+callModule(MC, "declaration", "declaration",
+           hints = TRUE)
+```
+
+
+## Show the changing scores
+
+```{r}
+actionButton("update", "Send scores.")
+tableOutput("scores")
+output$scores <- renderTable({
+  if (input$update == 0) return(NULL)
+  data.frame(problem = Scorekeeper$problem, 
+             answer = Scorekeeper$answer,
+             attempts = Scorekeeper$attempts, 
+             score = Scorekeeper$score, 
+             stringsAsFactors = FALSE)
+})
+```
+

@@ -1,0 +1,68 @@
+%% Author: Kaplan
+%% Subject: Model structures, graphs of models
+
+The drawings show some data involving three variables: 
+\begin{itemize}
+\item D --- a quantitative variable
+\item A --- a quantitative variable
+\item G --- a categorical variable with two levels: S \& K
+\end{itemize}
+
+\centerline{\includegraphics[width=1.5in]{../Figures/S2007-9-fig.png}}
+
+Sketch the graph on a piece of paper.  Over that sketch, draw a function
+that shows the pattern of
+the fitted model values for each of the following models:
+
+\begin{enumerate}[(a)]
+\item \model{D}{A+G}
+
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans1.png} 
+
+There are two linear components --- one for each level of G.  But, since there is no interaction term, the lines must have the same slope. 
+\end{AnswerText}
+
+\item \model{D}{A-1}
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans3.png} 
+
+The exclusion of the intercept term forces the line to go through the origin.
+\end{AnswerText}
+
+\item \model{D}{A}
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans5.png} 
+
+A simple straight-line graph.
+\end{AnswerText}
+
+\item \model{D}{A*G}
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans2.png}
+
+By including an interaction term between A and G, the lines for each group can have different slopes.
+\end{AnswerText}
+
+\item \model{D}{1}
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans4.png}
+
+This is the all-cases-the-same model.  Since model doesn't depend on A or G at all, the graph is flat.
+\end{AnswerText}
+
+\item \model{D}{poly(A,2)}
+\begin{AnswerText}
+\includegraphics[width=1.5in]{../Figures/S2007-9-fig-ans6.png}
+
+A second-order polynomial has a parabolic shape.  The fitted parameters set the location of the peak and the orientation (``bowl'' or ``mountain'').
+\end{AnswerText}
+\end{enumerate}
+\bigskip
+
+\noindent Example: \model{D}{G}.
+
+\centerline{\includegraphics[width=1.5in]{../Figures/S2007-9-fig-2.png}}
+
+
+

@@ -1,0 +1,87 @@
+%% Author: Daniel Kaplan
+%% Subject: adjustment and covariates,
+
+{\em Time Magazine} reported the results of a poll of people's
+opinions about the U.S. economy in July 2008.  The results are summarized
+in the graph.
+
+\bigskip
+\centerline{\includegraphics[width=3in]{../Figures/time-poll-july-2008.png}}
+[Source: {\em Time}, July 28, 2008, p. 41]
+\bigskip
+
+The variables depicted in the graph are:
+\begin{itemize}
+\item \VN{Pessimism}, as indicated by agreeing with the statement that
+the U.S. was a better place to live in the 1990s and will continue to
+decline.
+\item \VN{Ethnicity}, with three levels: White, African American, Hispanic.
+\item \VN{Income}, with five levels.
+\item \VN{Age}, with four levels.
+\end{itemize}
+
+Judging from the information in the graph, which of these statements
+best describes the model \model{\VN{pessimism}}{\VN{income}}?
+\begin{MultipleChoice}
+\correct{\VN{Pessimism} declines as incomes get higher.}
+\wrong{\VN{Pessimism} increases as incomes get higher.}
+\wrong{\VN{Pessimism} is unrelated to income.}
+\end{MultipleChoice}
+
+Again, judging from the information in the graph, which of these
+statements best describes the model \model{\VN{pessimism}}{\VN{age}}?
+\begin{MultipleChoice}
+\correct{\VN{Pessimism} is highest in the 18-29 age group.}
+\wrong{\VN{Pessimism} is highest in the 64 and older group.}
+\wrong{\VN{Pessimism} is lowest among whites.}
+\wrong{\VN{Pessimism} is unrelated to age.}
+\end{MultipleChoice}
+
+Poll results such as this are almost always reported using just one
+explanatory variable at a time, as in this graphic.  However, it can
+be more informative to know the effect of one variable while {\em
+adjusting for} other variables.  For example, in looking at the
+connection between \VN{pessimism} and \VN{age}, it would be useful to
+be able to untangle the influence of \VN{income}.
+
+\begin{comment}
+
+Imagine that the poll were reported in terms of a model 
+\model{\VN{pessimism}}{\VN{age} + \VN{income}}. Keep in mind
+that there is a strong correlation between \VN{age} and \VN{income}, with
+people in the 18-29 age group typically having smaller incomes than
+people in older age groups.
+
+Which of the following is true about the \VN{age} coefficients from
+such a model?
+\begin{MultipleChoice}
+\wrong{They would be exactly the same as in the
+\model{\VN{pessimism}}{\VN{age}}?} 
+\correct{They would display the relationship between \VN{pessimism}
+and \VN{age} adjusting for \VN{income}.}
+\wrong{They would display the relationship between \VN{pessimism}
+and \VN{income} adjusting for \VN{age}.}
+\end{MultipleChoice}
+
+How do you think the conclusions suggested by the poll might be
+different if the results were presented in terms of the model 
+\model{\VN{pessimism}}{\VN{age} + \VN{income}} rather than the two
+separate models \model{\VN{pessimism}}{\VN{age}} and 
+\model{\VN{pessimism}}{\VN{income}}?  \TextEntry
+
+\begin{AnswerText}
+Taking into account that younger people tend to have lower incomes,
+and that lower income people tend to be more pessimistic, it is likely
+that the model \model{\VN{pessimism}}{\VN{age} + \VN{income}} would
+show a different relationship between \VN{pessimism} and \VN{age}
+than the model \model{\VN{pessimism}}{\VN{age}}.  For example,
+Simpson's paradox might apply and it could be that, when adjusting for
+income, younger people are {\em less} pessimistic than older people.
+
+Unfortunately, it's not possible to reconstruct the multi-variable
+models from the single-variable summaries that are typical of polls.
+It would be helpful if results were presented after adjusting for the
+other variables involved.
+\end{AnswerText}
+
+\end{comment}

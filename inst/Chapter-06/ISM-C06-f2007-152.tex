@@ -1,0 +1,44 @@
+%% Author: Daniel Kaplan
+%% Subject: model design, three-way interactions,
+
+It's possible to have interaction terms that involve more than two
+variables. For instance, one model of the swimming record data
+displayed in Chapter 4 was \model{\VN{time}}{\VN{year}*\VN{sex}}.
+This model design includes an interaction term between year and sex.
+This interaction term produces fitted model values that fall on lines
+with two different slopes, one for men and one for women.  Now
+consider a third possible term to add to the model, the transform term
+that is ``yes'' when the year is larger than 1948 and ``no'' when the
+year is 1948 or earlier.  Call this variable ``post-war,'' since World
+War II ended in 1945 and the Olympic games resumed in 1948.  This can
+be interpreted to represent the systematic changes that occurred after
+the war.
+
+
+Here is the model of the swimming record data 
+that includes an intercept term, main terms for year, sex, and
+post-war, and interaction terms among all of those: a three-way interaction.
+
+% from Language/figures.r
+% mod6.plot(dots=TRUE, lwd=2.5)
+\bigskip
+\centerline{\includegraphics[width=3.7in]{../Figures/mod6-plot-B.png}}
+\bigskip
+
+A two-way interaction term between sex and year allows there to be
+differently sloping lines for men and women.  A three-way
+interaction term among sex, year, and post-war allows even more
+flexibility; the difference between slopes for men and women can be
+different before and after the war.  You can see this from the graph.
+Before 1948, men's and women's slopes are very different.  After the
+war the slopes are almost the same.  
+
+Explain how this graph gives support for the following interpreation:
+Before the war, women's participation in competitive sports was rapidly
+increasing.  As more women became involved in swimming, records were
+rapidly beaten.  After the war, both women and men had high levels of
+participation and so new records were the result of better methods of
+training.  Those methods apply equally to men and women and so records
+are improving at about the same rate for both sexes.
+\TextEntry
+

@@ -1,0 +1,103 @@
+%% Author: Danny Kaplan
+%% Subject: Graphics on Multiple Variables
+
+The graphic (from the New York {\em Times}, April 17, 2008) shows the 
+fitted values from a model of the survival of babies born extremely prematurely.
+
+%\centerline{\graphicsfile[width=3.5in]{babylarge.jpg}}
+\centerline{\begin{tabular}{c}
+\includegraphics[width=1.4in]{../Figures/babylarge-2.jpg}\\
+\includegraphics[width=2.9in]{../Figures/babylarge-1.jpg}\\
+\end{tabular}}
+
+\begin{quotation}
+{\em \noindent Caption: ``A new study finds that doctors could better
+estimate an extremely premature baby's chance of survival by
+considering factors including birth weight, length of gestation, sex
+and whether the mother was given steroids to help develop the baby's lungs.''}
+\end{quotation}
+\bigskip
+
+Two different response variables are plotted: (1) the probability of survival 
+and (2) the probability of survival without moderate to severe disabilities.
+Remarkably for a statistical graphic, there are three explanatory variables:
+\begin{enumerate}
+\item Birth weight (measured in pounds (lb) in the graphic).
+% \item Whether the birth was a single baby or involved multiple babies.
+\item The sex of the baby.
+\item Whether the mother took steroids intended to help the fetus's lungs develop.  
+\end{enumerate}
+
+Focus on the survival rates without disabilities --- the darker bars in
+the graphic.
+
+\begin{enumerate}[(a)]
+
+\item Estimate the effect of giving steroids, that is, how much extra
+survival probability is associated with giving steroids?
+\begin{MultipleChoice}
+\wrong{No extra survival probability with steroids.}
+\wrong{About 1-5 percentage points}
+\correct{About 10 to 15 percentage points}
+\wrong{About 50 percentage points}
+\wrong{About 75 percentage points}
+\end{MultipleChoice}
+
+
+
+\item For the babies where the mother was given steroids, how does the
+survival probability depend on the birth weight of the baby:
+\begin{MultipleChoice}
+\wrong{No dependence.}
+\wrong{Increases by about 25 percentage points.}
+\wrong{Increases by about 50 percentage points.}
+\wrong{Increases by about 25 percentage points per pound.}
+\correct{Increases by about 50 percentage points per pound.}
+\end{MultipleChoice}
+
+
+
+\item For the babies where the mother was given steroids, how does the
+survival probability depend on the sex of the baby?
+\begin{MultipleChoice}
+\wrong{No dependence.}
+\correct{Higher for girls by about 15 percentage points.}
+\wrong{Higher for boys by about 20 percentage points.}
+\wrong{Higher for girls by about 40 percentage points.}
+\wrong{Higher for boys by about 40 percentage points.}
+\end{MultipleChoice}
+
+
+\item How would you look 
+for an interaction between birth weight and baby's sex in accounting for
+survival?
+
+\begin{MultipleChoice}
+\wrong{Compare survival of males to females at a given weight.}
+\wrong{Compare survival of males across different weights.}
+\wrong{Compare survival of females across different weights.}
+\correct{Compare the difference in survival between males and females across
+  different weights.}
+\end{MultipleChoice}
+
+Do you see signs of a substantial interaction between birth
+  weight and sex in accounting for survival?  (Take substantial to
+  mean ``greater than 10 percentage points.'') \SelectSetHoriz{No}{Yes,No}
+
+\item How would you look for a 
+substantial interaction between steroid use and baby's sex in
+accounting for survival. 
+\begin{MultipleChoice}
+\wrong{Compare survival of males to females when the mother was given steroids.}
+\wrong{Compare survival of males between steroid given and steroid not
+  given.}
+\wrong{Compare survival of females between steroid given and steroid
+  not given.}
+\correct{Compare the difference in survival between males and females
+  between steroid given and steroid not given.}
+\end{MultipleChoice}
+
+Do you see signs of a substantial interaction between steroid use and sex in accounting for survival?  (Take substantial to
+  mean ``greater than 10 percentage points.'') \SelectSetHoriz{No}{Yes,No}
+
+\end{enumerate}

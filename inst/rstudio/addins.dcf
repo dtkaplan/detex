@@ -1,0 +1,4 @@
+Name: translate tex to Rmd
+Description: Converts tex markup into equivalent Rmd
+Binding: texToRmd
+Interactive: false

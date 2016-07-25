@@ -1,0 +1,79 @@
+%% Author: Daniel Kaplan
+%% Subject: Model design, threshold regression
+%% Date: 2007
+
+
+Consider the following situation. In order to encourage schools to perform
+well, a school district hires an external evaluator to give a rating to
+each school in the district.  The rating is a single number based on
+the quality of the teachers, absenteeism among the teachers, the
+amount and quality of homeworks the the teachers assign, and so on.  
+
+To reward those schools that do well, the district gives a moderate
+salary bonus to each teacher and a fairly large budget increase to the
+school itself.
+
+The next year, the school district publishes data showing that the
+students in schools that received the budget increases had done much
+better on standarized test scores than the schools that hadn't gotten
+the increases.  The school district argues that this means that
+increasing budgets overall will improve performance on standardized tests.
+
+The teacher's union supports the idea of higher budgets, but objects
+to the rating system,  saying that it is
+meaningless and that teacher pay should not be linked to it.  The Taxpayers
+League argues that there is no real evidence that higher spending
+produces better results.  They interpret the school district's data as
+indicating only that the higher ranked schools are better and, of
+course, better schools give better results.  Those schools were better
+before they won the ratings-based budget increase.
+
+This is a serious problem.  Because of the way the school district
+collected its data, being a high-rated school is confounded with
+getting a higher budget.  
+
+A modeling technique for dealing with situations like this is called
+\newword{threshold regression}.  Threshold regression 
+models student test scores at each school as a function of the school
+rating, but includes another variable that indicates whether the school
+got a budget increase.  The budget increase variable is almost the
+same thing as the school rating: because of the way the school
+district awarded the increases, it is a threshold transformation of
+the school rating.
+
+% see Language/figures.r threshold.example(noise=60)
+\centerline{\includegraphics[width=3.5in]{../Figures/school-threshold-example.png}}
+
+The graph shows some data (plotted as circles) 
+from a simulation of this situation in which the budget increase 
+had a genuine impact of 50 points in the standardized test.  The
+solid line shows the model of test score as a function of school
+rating, with only the main effect. This model corresponds to the claim
+that the threshold has no effect.  The solid dots are the model
+values from another model, with rating as a main effect and a
+threshold transformation of rating that corresponds to which schools
+got the budget increase.
+
+Explain how to interpret the models as indicating the effect of the
+budget increase.  In addition to your explanation, make sure to give a
+numerical estimate of how big the effect is, according to the model as
+indicated in the graph.
+\TextEntry
+
+\begin{AnswerText}
+The model that includes the threshold transformation term shows a jump
+at the threshold.  By the nature of the model, any jump would have to
+be exactly at the threshold: that's how we defined the threshold
+term.  It's the size of the jump that indicates what's going on.  This
+jump is positive for the schools getting the budget increase and
+amounts to about 40 points in test scores.
+\end{AnswerText}
+
+An important statistical question is whether the data provide good
+support for the claim that the threshold makes a difference.  
+(Techniques for answering this question are discussed later in the book).  The
+answer depends both on the size of the effect, and how much data is
+used for constructing the model.  For
+the simulation here, it turns out that the threshold model has
+successfully detected the effect of the budget increase.
+
