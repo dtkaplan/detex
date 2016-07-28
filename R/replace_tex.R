@@ -74,13 +74,17 @@ verbatim_fix <- function(tex_string) {
 
 #' @export
 sweave_chunk <- function(tex_string) {
-  pattern <- "^<<(.*)>>="
+  pattern <- "<<(.*)>>=\n"
   matches <- stringr::str_match_all(tex_string, pattern)[[1]]
   result <- if (nrow(matches) > 0) {
-    sprintf("\`\`\`{r %s}", matches[1,2])
+    for (k in 1:nrow(matches)) {
+      tex_string <- gsub(matches[k, 1],
+                         paste0("\`\`\`{r ", matches[k,2], "}\n"),
+                         tex_string, fixed = TRUE)
+    }
+    tex_string <- gsub("@", "\`\`\`\n", tex_string)
   } else {
-    if (grepl("^@", tex_string)) "\`\`\`"
-    else tex_string
+    tex_string
   }
 
   result <-
@@ -110,7 +114,7 @@ translate_tex_comments <- function(tex_string) {
 }
 
 simplify_double_quotes <- function(tex_string) {
-  gsub("''", '"', gsub("``", '"', tex_string))
+  gsub("''", '"', gsub(" ``", ' "', tex_string))
 }
 
 #' @export
@@ -142,11 +146,20 @@ tex_command_translate <- function(command, arg1, arg2) {
       marginnote = "`r tufte::margin_note(\"%s\")`",
       VerbatimInput = "```{r echo = FALSE, comment = ''}\ncat(ISMmd::verbatim_input(\"%s\"))\n```\n",
       noindent = "",
+      cite = "[@%s]", # bookdown citations
       em = "*%s*",
       bf = "**%s**",
+      sqrt = "\\sqrt",
+      cos = "\\cos",
+      sin = "\\sin",
+      pi = "\\pi",
+      "function" = "`%s()`",
+      pkg = "**`%s`**",
+      times = "\\times",
       TextEntry = "YOUR ANSWER HERE.",
-      index = "`r index_entry('%s', '%s')`",
+      index = "`r index_entry('%s', '%s')` ",
       newword = "`r new_word('%s')`",
+      newworddef = "`r new_word('%s')` `r index_entry(%s)`",
       dataset = "`r dataset('%s')`",
       datasetCPS = "`r dataset('%s')`",
       matchSelect = "CHOICES %s:  CORRECT %s",

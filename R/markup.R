@@ -11,7 +11,7 @@ dataset <- function(word) {
 }
 
 #' @export
-index_entry <- function(index_label, index_contents) {
+index_entry <- function(index_label = "C", index_contents) {
   I(paste0("Fix index_entry. Contents: ", index_contents))
 }
 
