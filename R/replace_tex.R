@@ -167,6 +167,14 @@ tex_command_translate <- function(command, arg1, arg2) {
             ifelse(!missing(arg1), arg1, ""),
             ifelse(!missing(arg2), arg2, ""))
     )
+
+  # fix situations where the format relies on an inline r chunk
+  # and the arguments might have a backquote in them.
+  if (grepl("^`", format)) {
+    if (!missing(arg1)) arg1 <- gsub("`", " ", arg1)
+    if (!missing(arg2)) arg2 <- gsub("`", " ", arg2)
+  }
+
   if (missing(arg1)) return(format)
   else if (missing(arg2)) return(sprintf(format, arg1))
   else return(sprintf(format, arg1, arg2))
