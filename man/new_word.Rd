@@ -9,4 +9,3 @@ new_word(word)
 \description{
 Mark a word as being introduced and indexed.
 }
-

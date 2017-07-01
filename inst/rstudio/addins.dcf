@@ -1,4 +1,9 @@
-Name: translate tex to Rmd
+Name: detex
 Description: Converts tex markup into equivalent Rmd
 Binding: texToRmd
+Interactive: false
+
+Name: glue lines
+Description: Eliminate within-paragraph line breaks
+Binding: unbreak_lines
 Interactive: false

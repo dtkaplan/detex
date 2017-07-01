@@ -121,6 +121,7 @@ simplify_double_quotes <- function(tex_string) {
 tex_command_translate <- function(command, arg1, arg2) {
   format <-
     switch(command,
+      times = "×",
       wrong = "- %s",
       correct = "- RIGHT %s",
       begin = "<!-- begin %s -->\n",
@@ -139,9 +140,10 @@ tex_command_translate <- function(command, arg1, arg2) {
       item = "#. ",
       code = "`%s`",
       texttt = "`%s`",
+      frac = "\\frac{%s}{%s}",
       paragraph = "\n",
       # bookdown- and tufte-specific things
-      ref = "\\@ref(\"%s\")", # for bookdown references
+      ref = "\\@ref(%s)", # for bookdown references
       newthought = "`r tufte::newthought(\"%s\")`",
       marginnote = "`r tufte::margin_note(\"%s\")`",
       VerbatimInput = "```{r echo = FALSE, comment = ''}\ncat(detex::verbatim_input(\"%s\"))\n```\n",
@@ -155,7 +157,9 @@ tex_command_translate <- function(command, arg1, arg2) {
       pi = "\\pi",
       "function" = "`%s()`",
       pkg = "**`%s`**",
-      times = "\\times",
+      pm = "\\pm",
+      modelValues = "*%s*",
+      indicatorVar = "`%s:%s`",
       TextEntry = "YOUR ANSWER HERE.",
       index = "`r detex::index_entry('%s', '%s')` ",
       newword = "`r detex::new_word('%s')`",
@@ -189,6 +193,8 @@ inline_font_translate <- function(string) {
 #' @export
 replace_tex_command_0 <- function(string) {
   if (length(string) > 1) stop("Just one string at a time, please.")
+  # special case: percent sign
+  string <- gsub("\\\\%", "%", string)
   # matching simple latex commands
   # must be letter after \
   pattern <- "\\\\([a-zA-Z]+)[^\\{a-zA-Z]"

@@ -7,4 +7,4 @@ Maintainer: Daniel Kaplan <kaplan@macalester.edu>
 Description: When moving legacy latex/sweave code over to markdown, RMarkdown, bookdown, and so on, this package makes the task a little less onerous by translating simple latex markup into equivalent markdown. There is an RStudio addin that lets you do this in the editor.
 License: What license is it under?
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
