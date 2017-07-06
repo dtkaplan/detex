@@ -7,3 +7,8 @@ Name: glue lines
 Description: Eliminate within-paragraph line breaks
 Binding: unbreak_lines
 Interactive: false
+
+Name: untable tex
+Description: Translate latex tables to md
+Binding: untex_table
+Interactive: false
