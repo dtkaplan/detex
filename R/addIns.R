@@ -13,3 +13,11 @@ unbreak_lines <- function() {
                          simplify_paragraphs(where$text),
                          context$id)
 }
+
+untex_table <- function() {
+  context <- rstudioapi::getActiveDocumentContext()
+  where <- rstudioapi::primary_selection(context)
+  rstudioapi::insertText(where$range,
+                         latex2md_tables(where$text),
+                         context$id)
+}

@@ -13,6 +13,7 @@ dataset <- function(word) {
 #' @export
 index_entry <- function(index_label = "C", index_contents="Missing contents!") {
   I(paste0("^[Index_entry. Contents: ", index_contents, "]"))
+  "" # return nothing
 }
 
 #' @export

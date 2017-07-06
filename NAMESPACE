@@ -2,6 +2,8 @@
 
 export(dataset)
 export(index_entry)
+export(latex2md_tables)
+export(make_table_bar)
 export(new_word)
 export(replace_tex_command_0)
 export(replace_tex_command_1)
