@@ -117,79 +117,6 @@ simplify_double_quotes <- function(tex_string) {
   gsub("''", '"', gsub(" ``", ' "', tex_string))
 }
 
-#' @export
-tex_command_translate <- function(command, arg1, arg2) {
-  format <-
-    switch(command,
-      "%" = "%",
-      times = "×",
-      wrong = "- %s",
-      correct = "- RIGHT %s",
-      begin = "<!-- begin %s -->\n",
-      end   = "<!-- end %s -->",
-      centerline = "%s",
-      variableName = "`%s`",
-      VN    = "`%s`",
-      includegraphics = " %s ",
-      model = "%s ~ %s",
-      bigskip = "\n",
-      medskip = "\n",
-      section = "# %s",
-      subsection = "## %s",
-      subsubsection = "### %s",
-      centerline = " %s \n",
-      item = "#. ",
-      code = "`%s`",
-      texttt = "`%s`",
-      frac = "\\frac{%s}{%s}",
-      paragraph = "\n",
-      # bookdown- and tufte-specific things
-      ref = "\\@ref(%s)", # for bookdown references
-      newthought = "`r tufte::newthought(\"%s\")`",
-      marginnote = "`r tufte::margin_note(\"%s\")`",
-      VerbatimInput = "```{r echo = FALSE, comment = ''}\ncat(detex::verbatim_input(\"%s\"))\n```\n",
-      noindent = "",
-      cite = "[@%s]", # bookdown citations
-      em = "*%s*",
-      bf = "**%s**",
-      sqrt = "\\sqrt{%s}",
-      cos = "\\cos",
-      sin = "\\sin",
-      pi = "\\pi",
-      "function" = "`%s()`",
-      pkg = "**`%s`**",
-      pm = "±",
-      modelValues = "*%s*",
-      indicatorVar = "`%s%s`",
-      TextEntry = "YOUR ANSWER HERE.",
-      index = "`r detex::index_entry('%s', '%s')` ",
-      newword = "`r detex::new_word('%s')`",
-      newworddef = "`r detex::new_word('%s')` `r detex::index_entry('%s')`",
-      dataset = "`r detex::dataset('%s')`",
-      datasetCPS = "`r detex::dataset(\"CPS\")`",
-      matchSelect = "CHOICES %s:  CORRECT %s",
-      paste("TEX COMMAND NOT FOUND", command,
-            ifelse(!missing(arg1), arg1, ""),
-            ifelse(!missing(arg2), arg2, ""))
-    )
-
-  # fix situations where the format relies on an inline r chunk
-  # and the arguments might have a backquote in them.
-  if (grepl("^`", format)) {
-    if (!missing(arg1)) arg1 <- gsub("`", " ", arg1)
-    if (!missing(arg2)) arg2 <- gsub("`", " ", arg2)
-  }
-
-  if (missing(arg1)) return(format)
-  else if (missing(arg2)) return(sprintf(format, arg1))
-  else return(sprintf(format, arg1, arg2))
-}
-
-# Put {\em } font commands into \em{ } form.
-inline_font_translate <- function(string) {
-  tmp <- gsub("\\{\\\\em ", "\\\\em\\{", string)
-  gsub("\\{\\\\bf ", "\\\\bf\\{", tmp)
-}
 
 #' @export
 replace_tex_command_0 <- function(string) {
@@ -244,7 +171,7 @@ replace_tex_command_2 <- function(string) {
            tex_command_translate(matches[k,2], matches[k,3], matches[k,4]),
            working, fixed = TRUE)
   }
-
+  
   working
 }
 
