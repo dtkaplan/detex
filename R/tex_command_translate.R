@@ -7,8 +7,8 @@ tex_command_translate <- function(command, arg1, arg2) {
            times = "×",
            wrong = "- %s",
            correct = "- RIGHT %s",
-           begin = "<!-- begin %s -->\n",
-           end   = "<!-- end %s -->",
+           begin = if(arg1 == "boxedText")"\n----\n" else "<!-- begin %s -->\n",
+           end   = if(arg1 == "boxedText")"\n----\n" else "<!-- end %s -->",
            centerline = "%s",
            variableName = "`%s`",
            VN    = "`%s`",
@@ -18,10 +18,12 @@ tex_command_translate <- function(command, arg1, arg2) {
            model = "%s ~ %s",
            bigskip = "\n",
            medskip = "\n",
+           `section*` = "## %s  {-}",
            section = "## %s", # Set Chapter as the highest heading, so section is second highest
-           #`section*` = "## %s  {-}",
-           subsection = "### #s",
-           subsubsection = "#### #s",
+           `subsection*` = "### %s {-}",
+           subsection = "### %s",
+           subsubsection = "#### %s",
+           `subsubsection*` = "#### %s {-}",
            centerline = " %s \n",
            item = "#. ",
            code = "`%s`",
@@ -35,8 +37,8 @@ tex_command_translate <- function(command, arg1, arg2) {
            VerbatimInput = "```{r echo = FALSE, comment = ''}\ncat(detex::verbatim_input(\"%s\"))\n```\n",
            noindent = "",
            cite = "@%s", # bookdown citations
-           R = "(ref:R-package) ",
-           RStudio = "(ref:RStudio) ",
+           R = "R ",
+           RStudio = "RStudio ",
            em = "*%s*",
            bf = "**%s**",
            sqrt = "\\sqrt{%s}",
@@ -59,14 +61,14 @@ tex_command_translate <- function(command, arg1, arg2) {
            
            ### Additions ###
            
-           tab = "**%s**",
+           tab = '<span class="tab"> %s </span>',
            Sexpr = "`r %s`",
            setcounter = "`r %s <- %s`",
            Chapter = "# %s",
            textwidth = "`r fig.width`",
            href = "[%s](%s)",
            url = "%s",
-           Rstudio = "(ref:RStudio) ",
+           Rstudio = "RStudio ",
            emph = "_%s_", # Emphasis translated as italics
            vspace = "<br>", # Vertical Space
            underline = "**%s**", # Underlines are deprecated in Rmarkdown, replaced with bold
@@ -84,6 +86,16 @@ tex_command_translate <- function(command, arg1, arg2) {
            footnote = "^[%s]",
            nocite = "<!-- citation not used --- %s -->",
            dots = "...",
+           R = "R ",
+           iftrue = "",
+           fi = "<!-- Until Here -->",
+           rule = "\n----\n",
+           iffalse = "<!-- The block below should be commented out -->",
+           argument = '<span style="color:brown">%s</span>',
+           authNote = '<!-- AuthNote --- %s -->',
+           '~' = '~ ',
+           large = '<span style="font-size:larger;">%s</span>',
+           label = '%s',
            
            ## End of Additions ###
            
@@ -91,7 +103,9 @@ tex_command_translate <- function(command, arg1, arg2) {
                  ifelse(!missing(arg1), arg1, ""),
                  ifelse(!missing(arg2), arg2, ""))
     )
-  
+  if("TEX COMMAND NOT FOUND" %in% format) {
+    stop("Command Not Found!")
+  }
   # fix situations where the format relies on an inline r chunk
   # and the arguments might have a backquote in them.
   if (grepl("^`", format)) {

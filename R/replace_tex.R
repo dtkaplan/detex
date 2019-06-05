@@ -125,8 +125,10 @@ replace_tex_command_0 <- function(string) {
   string <- gsub("\\\\%", "%", string)
   # matching simple latex commands
   # must be letter after \
-  pattern <- "\\\\([a-zA-Z]+)[^\\{a-zA-Z]"
+  pattern <- "\\\\([a-zA-Z]+\\*{0,1})[^\\{a-zA-Z]"
+  print(pattern)
   matches <- stringr::str_match_all(string, pattern)[[1]]
+  print(matches)
   if (nrow(matches) == 0) return(string)
   working <- string
   for (k in 1:nrow(matches)) {
@@ -143,7 +145,7 @@ replace_tex_command_0 <- function(string) {
 replace_tex_command_1 <- function(string) {
   if (length(string) > 1) stop("Just one string at a time, please.")
   # matching simple latex commands
-  pattern <- "\\\\([a-zA-Z]*)\\{([^\\{\\}]*)\\}"
+  pattern <- "\\\\([a-zA-Z]+\\*{0,1})\\{([^\\{\\}]*)\\}"
   matches <- stringr::str_match_all(string, pattern)[[1]]
   if (nrow(matches) == 0) return(string)
   working <- string
@@ -161,7 +163,7 @@ replace_tex_command_1 <- function(string) {
 replace_tex_command_2 <- function(string) {
   if (length(string) > 1) stop("Just one string at a time, please.")
   # matching simple latex commands
-  pattern <- "\\\\([a-zA-Z]*)\\{(.*)\\}\\{(.*)\\}"
+  pattern <- "\\\\([a-zA-Z]+\\*{0,1})\\{(.*)\\}\\{(.*)\\}"
   matches <- stringr::str_match_all(string, pattern)[[1]]
   if (nrow(matches) == 0) return(string)
   working <- string
