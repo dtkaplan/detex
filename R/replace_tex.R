@@ -142,6 +142,7 @@ replace_tex_command_0 <- function(string) {
   if (nrow(matches) == 0) return(string)
   working <- string
   for (k in 1:nrow(matches)) {
+    print(matches)
     working <-
       gsub(matches[k,1],
            tex_command_translate(matches[k,2]),

@@ -19,6 +19,7 @@ tex_command_translate <- function(command, arg1, arg2) {
            model = "%s ~ %s",
            bigskip = "\n",
            medskip = "\n",
+           smallskip = "\n",
            `section*` = "## %s  {-}",
            section = "## %s", # Set Chapter as the highest heading, so section is second highest
            `subsection*` = "### %s {-}",
@@ -46,6 +47,7 @@ tex_command_translate <- function(command, arg1, arg2) {
            cos = "\\cos",
            sin = "\\sin",
            pi = "\\pi",
+           alpha = "\\alpha ",
            "function" = "`%s()`",
            pkg = "**`%s`**",
            pm = "±",
@@ -59,8 +61,6 @@ tex_command_translate <- function(command, arg1, arg2) {
            dataset = "`r detex::dataset('%s')`",
            datasetCPS = "`r detex::dataset(\"CPS\")`",
            matchSelect = "CHOICES %s:  CORRECT %s",
-           
-           ### Additions ###
            
            tab = '<span class="tab"> %s </span>',
            Sexpr = "`r %s`",
@@ -98,7 +98,11 @@ tex_command_translate <- function(command, arg1, arg2) {
            label = '%s',
            sf = '<span style="font-family: sans-serif">%s</span>',
            ## End of Additions ###
-           ## ref.label = "
+           fit = 'span style="color:green"> %s </span>',
+           resid = 'span style="color:red"> %s </span>',
+           newboolean = "`r %s <- false`",
+           setboolean = "`r %s <- %s`",
+           
            
            paste("TEX COMMAND NOT FOUND", command,
                  ifelse(!missing(arg1), arg1, ""),
