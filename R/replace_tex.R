@@ -26,6 +26,7 @@ translate_tex <- function(text_vector) {
     tmp <- simplify_double_quotes(tmp)
     tmp <- verbatim_fix(tmp)
     result[k] <- sweave_chunk(tmp)
+    
   }
   # put in one line
   # so that commands spanning multiple lines can be handled
@@ -76,17 +77,28 @@ verbatim_fix <- function(tex_string) {
 sweave_chunk <- function(tex_string) {
   pattern <- "<<(.*)>>=\n"
   matches <- stringr::str_match_all(tex_string, pattern)[[1]]
+  # Check if the line below is a reference label
+  ref_label_pattern = "<<(.*)>>\n"
+  labelMatches <- stringr::str_match_all(tex_string, ref_label_pattern)[[1]]
+  # Translate the the reference label into the R code header if it exists
+  labelResult <- if (length(labelMatches) > 0) {
+    paste(', ref.label = "', labelMatches[1, 2], '" ', sep = "")
+  } else ""
   result <- if (nrow(matches) > 0) {
     for (k in 1:nrow(matches)) {
       tex_string <- gsub(matches[k, 1],
-                         paste0("\`\`\`{r ", matches[k,2], "}\n"),
+                         paste0("\`\`\`{r ", matches[k,2], labelResult, "}\n"),
                          tex_string, fixed = TRUE)
     }
+    
     tex_string <- gsub("@", "\`\`\`\n", tex_string)
+    # Delete the old reference label
+    if(!is.null(labelResult)) {
+      tex_string <- gsub("<<(.*)>>", "", tex_string)
+    }
   } else {
     tex_string
   }
-
   result <-
     gsub("=true", " = TRUE",
     gsub("=false", " = FALSE", result))
@@ -126,12 +138,11 @@ replace_tex_command_0 <- function(string) {
   # matching simple latex commands
   # must be letter after \
   pattern <- "\\\\([a-zA-Z]+\\*{0,1})[^\\{a-zA-Z]"
-  print(pattern)
   matches <- stringr::str_match_all(string, pattern)[[1]]
-  print(matches)
   if (nrow(matches) == 0) return(string)
   working <- string
   for (k in 1:nrow(matches)) {
+    print(matches)
     working <-
       gsub(matches[k,1],
            tex_command_translate(matches[k,2]),

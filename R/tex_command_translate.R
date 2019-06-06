@@ -7,8 +7,9 @@ tex_command_translate <- function(command, arg1, arg2) {
            times = "×",
            wrong = "- %s",
            correct = "- RIGHT %s",
-           begin = if(arg1 == "boxedText")"\n----\n" else "<!-- begin %s -->\n",
-           end   = if(arg1 == "boxedText")"\n----\n" else "<!-- end %s -->",
+           # Horizontal lines above and below for boxedText and flexible spans for anything else
+           begin = if(arg1 == "boxedText")"\n----\n" else '<span class="%s">\n', 
+           end   = if(arg1 == "boxedText")"\n----\n" else "\n</span>\n",
            centerline = "%s",
            variableName = "`%s`",
            VN    = "`%s`",
@@ -18,6 +19,7 @@ tex_command_translate <- function(command, arg1, arg2) {
            model = "%s ~ %s",
            bigskip = "\n",
            medskip = "\n",
+           smallskip = "\n",
            `section*` = "## %s  {-}",
            section = "## %s", # Set Chapter as the highest heading, so section is second highest
            `subsection*` = "### %s {-}",
@@ -45,6 +47,7 @@ tex_command_translate <- function(command, arg1, arg2) {
            cos = "\\cos",
            sin = "\\sin",
            pi = "\\pi",
+           alpha = "\\alpha ",
            "function" = "`%s()`",
            pkg = "**`%s`**",
            pm = "±",
@@ -58,8 +61,6 @@ tex_command_translate <- function(command, arg1, arg2) {
            dataset = "`r detex::dataset('%s')`",
            datasetCPS = "`r detex::dataset(\"CPS\")`",
            matchSelect = "CHOICES %s:  CORRECT %s",
-           
-           ### Additions ###
            
            tab = '<span class="tab"> %s </span>',
            Sexpr = "`r %s`",
@@ -79,7 +80,6 @@ tex_command_translate <- function(command, arg1, arg2) {
            textbf = "**%s**",
            texttt = "<tt>%s</tt>",
            verb = "",
-           textit = "*%s*",
            Rindex = "<tt>%s</tt> <!-- This term should be indexed -->",
            myindex = "<!-- %s This term should be indexed -->",
            noindent = "\n",
@@ -96,8 +96,13 @@ tex_command_translate <- function(command, arg1, arg2) {
            '~' = '~ ',
            large = '<span style="font-size:larger;">%s</span>',
            label = '%s',
-           
+           sf = '<span style="font-family: sans-serif">%s</span>',
            ## End of Additions ###
+           fit = 'span style="color:green"> %s </span>',
+           resid = 'span style="color:red"> %s </span>',
+           newboolean = "`r %s <- false`",
+           setboolean = "`r %s <- %s`",
+           
            
            paste("TEX COMMAND NOT FOUND", command,
                  ifelse(!missing(arg1), arg1, ""),
