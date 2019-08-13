@@ -5,7 +5,7 @@ tex_command_translate <- function(command, arg1, arg2) {
   format <-
     switch(command,
            "%" = "%",
-           times = "×",
+           times = "x",
            wrong = "- %s",
            correct = "- RIGHT %s",
            begin = "<!-- begin %s -->\n",
@@ -46,7 +46,7 @@ tex_command_translate <- function(command, arg1, arg2) {
            pi = "\\pi",
            "function" = "`%s()`",
            pkg = "**`%s`**",
-           pm = "±",
+           pm = "plus-or-minus",
            modelValues = "*%s*",
            indicatorVar = "`%s%s`",
            TextEntry = "YOUR ANSWER HERE.",
