@@ -1,7 +1,7 @@
 Package: detex
 Type: Package
 Title: Translates simple latex/sweave markup into Rmd
-Version: 0.1.0
+Version: 0.1.1
 Author: Daniel Kaplan
 Maintainer: Daniel Kaplan <kaplan@macalester.edu>
 Description: When moving legacy latex/sweave code over to markdown, RMarkdown, bookdown, and so on, this package makes the task a little less onerous by translating simple latex markup into equivalent markdown. There is an RStudio addin that lets you do this in the editor.
