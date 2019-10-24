@@ -7,12 +7,17 @@ tex_command_translate <- function(command, arg1, arg2) {
            times = "x",
            wrong = "- %s",
            correct = "- RIGHT %s",
-           begin = if(arg1 == "boxedText")"\n----\n" else "<!-- begin %s -->\n",
-           end   = if(arg1 == "boxedText")"\n----\n" else "<!-- end %s -->",
+           begin = if(arg1 == "boxedText")"\n----\n" else 
+             if (arg1=="Answer") "<!--begin-answer-->" else "<!-- begin %s -->\n",
+           end   = if(arg1 == "boxedText")"\n----\n" else 
+             if (arg1=="Answer") "<!--end-answer-->" else "<!-- end %s -->",
            centerline = "%s",
            variableName = "`%s`",
            VN    = "`%s`",
-           var = "`%s`",
+           var = "`r MDSR2exercises::var_macro(%s)`",
+           val = "`r MDSR2exercises::val_macro(%s)`",
+           pkg = "`r MDSR2exercises::pkg_macro(%s)`",
+           data = "`r MDSR2exercises::df_macro(%s)`",
            textit = "*%s*",
            includegraphics = "![Caption](%s.png)", # displays as image in markdown
            model = "%s ~ %s",
@@ -46,7 +51,6 @@ tex_command_translate <- function(command, arg1, arg2) {
            sin = "\\sin",
            pi = "\\pi",
            "function" = "`%s()`",
-           pkg = "**`%s`**",
            pm = "plus-or-minus",
            modelValues = "*%s*",
            indicatorVar = "`%s%s`",
